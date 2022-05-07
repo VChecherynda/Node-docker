@@ -41,6 +41,8 @@ const connectWithRetry = () => {
 
 connectWithRetry();
 
+app.enable("trust proxy");
+
 app.use(session({
     store: new RedisStore({ client: redisClient }),
     secret: SESSION_SECRET,
@@ -59,7 +61,7 @@ app.get('/', (req, res) => {
     res.send("<h2>Hi</h2>");
 }); 
 
-app.use("/api/v1/users/", authRouter);
+app.use("/api/v1/users", authRouter);
 app.use("/api/v1/posts", postRouter);
 
 const port = process.env.PORT || 3000;
